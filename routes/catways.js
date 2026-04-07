@@ -1,10 +1,19 @@
+/**
+ * @fileoverview Routes de gestion des catways.
+ * @module routes/catways
+ */
+
 const express = require('express');
 const router = express.Router();
 const Catway = require('../models/Catway');
 const Reservation = require('../models/Reservation');
 const { isAuthenticated } = require('../middleware/auth');
 
-// GET /catways - Liste tous les catways
+/**
+ * Affiche la liste de tous les catways triés par numéro.
+ * @route GET /catways
+ * @access Privé
+ */
 router.get('/', isAuthenticated, async (req, res) => {
   try {
     const catways = await Catway.find().sort({ catwayNumber: 1 });
@@ -14,12 +23,21 @@ router.get('/', isAuthenticated, async (req, res) => {
   }
 });
 
-// GET /catways/new - Formulaire de création
+/**
+ * Affiche le formulaire de création d'un catway.
+ * @route GET /catways/new
+ * @access Privé
+ */
 router.get('/new', isAuthenticated, (req, res) => {
   res.render('catways/new', { user: req.session.user, error: null });
 });
 
-// GET /catways/:id - Détail d'un catway
+/**
+ * Affiche le détail d'un catway par son numéro.
+ * @route GET /catways/:id
+ * @param {number} id - Numéro du catway
+ * @access Privé
+ */
 router.get('/:id', isAuthenticated, async (req, res) => {
   try {
     const catway = await Catway.findOne({ catwayNumber: req.params.id });
@@ -30,7 +48,12 @@ router.get('/:id', isAuthenticated, async (req, res) => {
   }
 });
 
-// GET /catways/:id/edit - Formulaire de modification
+/**
+ * Affiche le formulaire de modification d'un catway.
+ * @route GET /catways/:id/edit
+ * @param {number} id - Numéro du catway
+ * @access Privé
+ */
 router.get('/:id/edit', isAuthenticated, async (req, res) => {
   try {
     const catway = await Catway.findOne({ catwayNumber: req.params.id });
@@ -41,7 +64,12 @@ router.get('/:id/edit', isAuthenticated, async (req, res) => {
   }
 });
 
-// POST /catways - Créer un catway
+/**
+ * Crée un nouveau catway.
+ * @route POST /catways
+ * @param {Object} req.body - Données du catway (catwayNumber, catwayType, catwayState)
+ * @access Privé
+ */
 router.post('/', isAuthenticated, async (req, res) => {
   try {
     const catway = new Catway(req.body);
@@ -52,7 +80,14 @@ router.post('/', isAuthenticated, async (req, res) => {
   }
 });
 
-// PUT /catways/:id - Modifier l'état d'un catway
+/**
+ * Modifie l'état d'un catway (seul catwayState est modifiable).
+ * Le numéro et le type ne peuvent pas être modifiés.
+ * @route PUT /catways/:id
+ * @param {number} id - Numéro du catway
+ * @param {string} req.body.catwayState - Nouvel état du catway
+ * @access Privé
+ */
 router.put('/:id', isAuthenticated, async (req, res) => {
   try {
     const catway = await Catway.findOne({ catwayNumber: req.params.id });
@@ -66,7 +101,12 @@ router.put('/:id', isAuthenticated, async (req, res) => {
   }
 });
 
-// DELETE /catways/:id - Supprimer un catway
+/**
+ * Supprime un catway par son numéro.
+ * @route DELETE /catways/:id
+ * @param {number} id - Numéro du catway
+ * @access Privé
+ */
 router.delete('/:id', isAuthenticated, async (req, res) => {
   try {
     await Catway.findOneAndDelete({ catwayNumber: req.params.id });

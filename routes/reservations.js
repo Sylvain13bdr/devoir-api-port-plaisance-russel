@@ -1,9 +1,19 @@
+/**
+ * @fileoverview Routes de gestion des réservations (sous-ressource de catway).
+ * @module routes/reservations
+ */
+
 const express = require('express');
 const router = express.Router();
 const Reservation = require('../models/Reservation');
 const { isAuthenticated } = require('../middleware/auth');
 
-// GET /catways/:id/reservations - Liste des réservations d'un catway
+/**
+ * Affiche la liste des réservations d'un catway.
+ * @route GET /catways/:id/reservations
+ * @param {number} id - Numéro du catway
+ * @access Privé
+ */
 router.get('/:id/reservations', isAuthenticated, async (req, res) => {
   try {
     const reservations = await Reservation.find({ catwayNumber: req.params.id });
@@ -13,12 +23,23 @@ router.get('/:id/reservations', isAuthenticated, async (req, res) => {
   }
 });
 
-// GET /catways/:id/reservations/new - Formulaire de création
+/**
+ * Affiche le formulaire de création d'une réservation.
+ * @route GET /catways/:id/reservations/new
+ * @param {number} id - Numéro du catway
+ * @access Privé
+ */
 router.get('/:id/reservations/new', isAuthenticated, (req, res) => {
   res.render('reservations/new', { catwayId: req.params.id, user: req.session.user, error: null });
 });
 
-// GET /catways/:id/reservations/:idReservation - Détail d'une réservation
+/**
+ * Affiche le détail d'une réservation.
+ * @route GET /catways/:id/reservations/:idReservation
+ * @param {number} id - Numéro du catway
+ * @param {string} idReservation - Identifiant MongoDB de la réservation
+ * @access Privé
+ */
 router.get('/:id/reservations/:idReservation', isAuthenticated, async (req, res) => {
   try {
     const reservation = await Reservation.findById(req.params.idReservation);
@@ -29,7 +50,13 @@ router.get('/:id/reservations/:idReservation', isAuthenticated, async (req, res)
   }
 });
 
-// GET /catways/:id/reservations/:idReservation/edit - Formulaire de modification
+/**
+ * Affiche le formulaire de modification d'une réservation.
+ * @route GET /catways/:id/reservations/:idReservation/edit
+ * @param {number} id - Numéro du catway
+ * @param {string} idReservation - Identifiant MongoDB de la réservation
+ * @access Privé
+ */
 router.get('/:id/reservations/:idReservation/edit', isAuthenticated, async (req, res) => {
   try {
     const reservation = await Reservation.findById(req.params.idReservation);
@@ -40,7 +67,13 @@ router.get('/:id/reservations/:idReservation/edit', isAuthenticated, async (req,
   }
 });
 
-// POST /catways/:id/reservations - Créer une réservation
+/**
+ * Crée une nouvelle réservation pour un catway.
+ * @route POST /catways/:id/reservations
+ * @param {number} id - Numéro du catway
+ * @param {Object} req.body - Données de la réservation (clientName, boatName, startDate, endDate)
+ * @access Privé
+ */
 router.post('/:id/reservations', isAuthenticated, async (req, res) => {
   try {
     const reservation = new Reservation({ ...req.body, catwayNumber: req.params.id });
@@ -51,7 +84,14 @@ router.post('/:id/reservations', isAuthenticated, async (req, res) => {
   }
 });
 
-// PUT /catways/:id/reservations - Modifier une réservation
+/**
+ * Modifie une réservation existante.
+ * @route PUT /catways/:id/reservations/:idReservation
+ * @param {number} id - Numéro du catway
+ * @param {string} idReservation - Identifiant MongoDB de la réservation
+ * @param {Object} req.body - Nouvelles données (clientName, boatName, startDate, endDate)
+ * @access Privé
+ */
 router.put('/:id/reservations/:idReservation', isAuthenticated, async (req, res) => {
   try {
     await Reservation.findByIdAndUpdate(req.params.idReservation, req.body);
@@ -62,7 +102,13 @@ router.put('/:id/reservations/:idReservation', isAuthenticated, async (req, res)
   }
 });
 
-// DELETE /catways/:id/reservations/:idReservation - Supprimer une réservation
+/**
+ * Supprime une réservation.
+ * @route DELETE /catways/:id/reservations/:idReservation
+ * @param {number} id - Numéro du catway
+ * @param {string} idReservation - Identifiant MongoDB de la réservation
+ * @access Privé
+ */
 router.delete('/:id/reservations/:idReservation', isAuthenticated, async (req, res) => {
   try {
     await Reservation.findByIdAndDelete(req.params.idReservation);

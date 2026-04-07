@@ -1,15 +1,20 @@
+/**
+ * @fileoverview Routes d'authentification (connexion et déconnexion).
+ * @module routes/auth
+ */
+
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 
-// GET / - Page d'accueil
-router.get('/', (req, res) => {
-  const error = req.session.error || null;
-  req.session.error = null;
-  res.render('index', { error });
-});
-
-// POST /login - Connexion
+/**
+ * Connecte un utilisateur avec son email et mot de passe.
+ * En cas de succès, stocke les informations en session et redirige vers le tableau de bord.
+ * @route POST /login
+ * @param {string} req.body.email - Email de l'utilisateur
+ * @param {string} req.body.password - Mot de passe de l'utilisateur
+ * @access Public
+ */
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -27,7 +32,11 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// GET /logout - Déconnexion
+/**
+ * Déconnecte l'utilisateur en détruisant la session et redirige vers la page d'accueil.
+ * @route GET /logout
+ * @access Privé
+ */
 router.get('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/');

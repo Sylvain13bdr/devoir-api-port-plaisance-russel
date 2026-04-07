@@ -1,9 +1,18 @@
+/**
+ * @fileoverview Routes de gestion des utilisateurs.
+ * @module routes/users
+ */
+
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const { isAuthenticated } = require('../middleware/auth');
 
-// GET /users/ - Liste tous les utilisateurs
+/**
+ * Affiche la liste de tous les utilisateurs (mot de passe exclu).
+ * @route GET /users/
+ * @access Privé
+ */
 router.get('/', isAuthenticated, async (req, res) => {
   try {
     const users = await User.find().select('-password');
@@ -13,12 +22,21 @@ router.get('/', isAuthenticated, async (req, res) => {
   }
 });
 
-// GET /users/new - Formulaire de création
+/**
+ * Affiche le formulaire de création d'un utilisateur.
+ * @route GET /users/new
+ * @access Privé
+ */
 router.get('/new', isAuthenticated, (req, res) => {
   res.render('users/new', { user: req.session.user, error: null });
 });
 
-// GET /users/:email - Détail d'un utilisateur
+/**
+ * Affiche le détail d'un utilisateur par son email.
+ * @route GET /users/:email
+ * @param {string} email - Adresse email de l'utilisateur
+ * @access Privé
+ */
 router.get('/:email', isAuthenticated, async (req, res) => {
   try {
     const foundUser = await User.findOne({ email: req.params.email }).select('-password');
@@ -29,7 +47,12 @@ router.get('/:email', isAuthenticated, async (req, res) => {
   }
 });
 
-// GET /users/:email/edit - Formulaire de modification
+/**
+ * Affiche le formulaire de modification d'un utilisateur.
+ * @route GET /users/:email/edit
+ * @param {string} email - Adresse email de l'utilisateur
+ * @access Privé
+ */
 router.get('/:email/edit', isAuthenticated, async (req, res) => {
   try {
     const foundUser = await User.findOne({ email: req.params.email }).select('-password');
@@ -40,7 +63,12 @@ router.get('/:email/edit', isAuthenticated, async (req, res) => {
   }
 });
 
-// POST /users/ - Créer un utilisateur
+/**
+ * Crée un nouvel utilisateur.
+ * @route POST /users/
+ * @param {Object} req.body - Données de l'utilisateur (username, email, password)
+ * @access Privé
+ */
 router.post('/', isAuthenticated, async (req, res) => {
   try {
     const newUser = new User(req.body);
@@ -51,7 +79,14 @@ router.post('/', isAuthenticated, async (req, res) => {
   }
 });
 
-// PUT /users/:email - Modifier un utilisateur
+/**
+ * Modifie les informations d'un utilisateur.
+ * Si le mot de passe est fourni, il est mis à jour et re-hashé.
+ * @route PUT /users/:email
+ * @param {string} email - Adresse email actuelle de l'utilisateur
+ * @param {Object} req.body - Nouvelles données (username, email, password optionnel)
+ * @access Privé
+ */
 router.put('/:email', isAuthenticated, async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -70,7 +105,12 @@ router.put('/:email', isAuthenticated, async (req, res) => {
   }
 });
 
-// DELETE /users/:email - Supprimer un utilisateur
+/**
+ * Supprime un utilisateur par son email.
+ * @route DELETE /users/:email
+ * @param {string} email - Adresse email de l'utilisateur
+ * @access Privé
+ */
 router.delete('/:email', isAuthenticated, async (req, res) => {
   try {
     await User.findOneAndDelete({ email: req.params.email });
