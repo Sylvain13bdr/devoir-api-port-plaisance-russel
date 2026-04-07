@@ -51,8 +51,8 @@ router.post('/', isAuthenticated, async (req, res) => {
   }
 });
 
-// POST /users/:email/update - Modifier un utilisateur
-router.post('/:email/update', isAuthenticated, async (req, res) => {
+// PUT /users/:email - Modifier un utilisateur
+router.put('/:email', isAuthenticated, async (req, res) => {
   try {
     const { username, email, password } = req.body;
     const foundUser = await User.findOne({ email: req.params.email });
@@ -70,8 +70,8 @@ router.post('/:email/update', isAuthenticated, async (req, res) => {
   }
 });
 
-// POST /users/:email/delete - Supprimer un utilisateur
-router.post('/:email/delete', isAuthenticated, async (req, res) => {
+// DELETE /users/:email - Supprimer un utilisateur
+router.delete('/:email', isAuthenticated, async (req, res) => {
   try {
     await User.findOneAndDelete({ email: req.params.email });
     res.redirect('/users');

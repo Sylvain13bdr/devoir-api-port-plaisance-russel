@@ -44,7 +44,7 @@
               <td>
                 <a href="/catways/<%= catwayId %>/reservations/<%= r._id %>" class="btn btn-secondary">Détail</a>
                 <a href="/catways/<%= catwayId %>/reservations/<%= r._id %>/edit" class="btn btn-primary">Modifier</a>
-                <form action="/catways/<%= catwayId %>/reservations/<%= r._id %>/delete" method="POST" style="display:inline" onsubmit="return confirm('Supprimer cette réservation ?')">
+                <form action="/catways/<%= catwayId %>/reservations/<%= r._id %>?_method=DELETE" method="POST" style="display:inline" onsubmit="return confirm('Supprimer cette réservation ?')">
                   <button type="submit" class="btn btn-danger">Supprimer</button>
                 </form>
               </td>

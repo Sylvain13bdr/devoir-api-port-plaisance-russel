@@ -23,7 +23,7 @@
       <% if (error) { %><div class="error"><%= error %></div><% } %>
       <p><strong>Numéro :</strong> <%= catway.catwayNumber %> (non modifiable)</p>
       <p><strong>Type :</strong> <%= catway.catwayType %> (non modifiable)</p>
-      <form action="/catways/<%= catway.catwayNumber %>/update" method="POST" style="margin-top:16px">
+      <form action="/catways/<%= catway.catwayNumber %>?_method=PUT" method="POST" style="margin-top:16px">
         <div class="form-group">
           <label>État</label>
           <input type="text" name="catwayState" value="<%= catway.catwayState %>" required>

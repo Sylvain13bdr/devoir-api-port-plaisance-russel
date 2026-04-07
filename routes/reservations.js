@@ -51,8 +51,8 @@ router.post('/:id/reservations', isAuthenticated, async (req, res) => {
   }
 });
 
-// POST /catways/:id/reservations/:idReservation/update - Modifier une réservation
-router.post('/:id/reservations/:idReservation/update', isAuthenticated, async (req, res) => {
+// PUT /catways/:id/reservations - Modifier une réservation
+router.put('/:id/reservations/:idReservation', isAuthenticated, async (req, res) => {
   try {
     await Reservation.findByIdAndUpdate(req.params.idReservation, req.body);
     res.redirect(`/catways/${req.params.id}/reservations`);
@@ -62,8 +62,8 @@ router.post('/:id/reservations/:idReservation/update', isAuthenticated, async (r
   }
 });
 
-// POST /catways/:id/reservations/:idReservation/delete - Supprimer une réservation
-router.post('/:id/reservations/:idReservation/delete', isAuthenticated, async (req, res) => {
+// DELETE /catways/:id/reservations/:idReservation - Supprimer une réservation
+router.delete('/:id/reservations/:idReservation', isAuthenticated, async (req, res) => {
   try {
     await Reservation.findByIdAndDelete(req.params.idReservation);
     res.redirect(`/catways/${req.params.id}/reservations`);

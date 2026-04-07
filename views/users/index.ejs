@@ -36,7 +36,7 @@
             <td>
               <a href="/users/<%= u.email %>" class="btn btn-secondary">Détail</a>
               <a href="/users/<%= u.email %>/edit" class="btn btn-primary">Modifier</a>
-              <form action="/users/<%= u.email %>/delete" method="POST" style="display:inline" onsubmit="return confirm('Supprimer cet utilisateur ?')">
+              <form action="/users/<%= u.email %>?_method=DELETE" method="POST" style="display:inline" onsubmit="return confirm('Supprimer cet utilisateur ?')">
                 <button type="submit" class="btn btn-danger">Supprimer</button>
               </form>
             </td>

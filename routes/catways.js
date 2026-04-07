@@ -53,7 +53,7 @@ router.post('/', isAuthenticated, async (req, res) => {
 });
 
 // PUT /catways/:id - Modifier l'état d'un catway
-router.post('/:id/update', isAuthenticated, async (req, res) => {
+router.put('/:id', isAuthenticated, async (req, res) => {
   try {
     const catway = await Catway.findOne({ catwayNumber: req.params.id });
     if (!catway) return res.status(404).render('error', { message: 'Catway non trouvé' });
@@ -61,12 +61,13 @@ router.post('/:id/update', isAuthenticated, async (req, res) => {
     await catway.save();
     res.redirect('/catways');
   } catch (err) {
-    res.render('catways/edit', { catway: req.body, user: req.session.user, error: err.message });
+    const catway = await Catway.findOne({ catwayNumber: req.params.id });
+    res.render('catways/edit', { catway, user: req.session.user, error: err.message });
   }
 });
 
 // DELETE /catways/:id - Supprimer un catway
-router.post('/:id/delete', isAuthenticated, async (req, res) => {
+router.delete('/:id', isAuthenticated, async (req, res) => {
   try {
     await Catway.findOneAndDelete({ catwayNumber: req.params.id });
     res.redirect('/catways');

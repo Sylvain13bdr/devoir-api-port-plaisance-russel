@@ -21,7 +21,7 @@
     <h1>Modifier l'utilisateur</h1>
     <div class="card">
       <% if (error) { %><div class="error"><%= error %></div><% } %>
-      <form action="/users/<%= foundUser.email %>/update" method="POST">
+      <form action="/users/<%= foundUser.email %>?_method=PUT" method="POST">
         <div class="form-group">
           <label>Nom d'utilisateur</label>
           <input type="text" name="username" value="<%= foundUser.username %>" required>

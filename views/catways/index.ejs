@@ -38,7 +38,7 @@
             <td>
               <a href="/catways/<%= c.catwayNumber %>" class="btn btn-secondary">Détail</a>
               <a href="/catways/<%= c.catwayNumber %>/edit" class="btn btn-primary">Modifier</a>
-              <form action="/catways/<%= c.catwayNumber %>/delete" method="POST" style="display:inline" onsubmit="return confirm('Supprimer ce catway ?')">
+              <form action="/catways/<%= c.catwayNumber %>?_method=DELETE" method="POST" style="display:inline" onsubmit="return confirm('Supprimer ce catway ?')">
                 <button type="submit" class="btn btn-danger">Supprimer</button>
               </form>
             </td>

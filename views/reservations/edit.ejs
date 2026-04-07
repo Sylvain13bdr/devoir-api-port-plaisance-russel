@@ -21,7 +21,7 @@
     <h1>Modifier la réservation</h1>
     <div class="card">
       <% if (error) { %><div class="error"><%= error %></div><% } %>
-      <form action="/catways/<%= catwayId %>/reservations/<%= reservation._id %>/update" method="POST">
+      <form action="/catways/<%= catwayId %>/reservations/<%= reservation._id %>?_method=PUT" method="POST">
         <div class="form-group">
           <label>Nom du client</label>
           <input type="text" name="clientName" value="<%= reservation.clientName %>" required>
