@@ -35,6 +35,13 @@ const userRoutes = require('./routes/users');
 const { isAuthenticated } = require('./middleware/auth');
 const Reservation = require('./models/Reservation');
 
+// Page d'accueil
+app.get('/', (req, res) => {
+  const error = req.session.error || null;
+  req.session.error = null;
+  res.render('index', { error });
+});
+
 app.use('/', authRoutes);
 app.use('/catways', catwayRoutes);
 app.use('/catways', reservationRoutes);
