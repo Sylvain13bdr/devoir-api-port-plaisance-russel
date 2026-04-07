@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Réservation - Port Russell</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav>
+    <span class="brand">Port de Plaisance Russell</span>
+    <div>
+      <a href="/dashboard">Tableau de bord</a>
+      <a href="/catways">Catways</a>
+      <a href="/reservations">Réservations</a>
+      <a href="/users">Utilisateurs</a>
+      <a href="/api-docs">Documentation API</a>
+      <a href="/logout">Déconnexion</a>
+    </div>
+  </nav>
+  <div class="container">
+    <h1>Détail de la réservation</h1>
+    <div class="card">
+      <p><strong>Catway n° :</strong> <%= reservation.catwayNumber %></p>
+      <p><strong>Client :</strong> <%= reservation.clientName %></p>
+      <p><strong>Bateau :</strong> <%= reservation.boatName %></p>
+      <p><strong>Début :</strong> <%= new Date(reservation.startDate).toLocaleDateString('fr-FR') %></p>
+      <p><strong>Fin :</strong> <%= new Date(reservation.endDate).toLocaleDateString('fr-FR') %></p>
+    </div>
+    <a href="/catways/<%= catwayId %>/reservations/<%= reservation._id %>/edit" class="btn btn-primary">Modifier</a>
+    <a href="/catways/<%= catwayId %>/reservations" class="btn btn-secondary">Retour</a>
+  </div>
+</body>
+</html>

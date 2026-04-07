@@ -1,0 +1,32 @@
+{
+  "name": "devoir-api-port-plaisance-russel",
+  "version": "1.0.0",
+  "description": "Devoir CEF - créer une API pour le port de plaisance Russel",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "init": "node scripts/initAdmin.js",
+    "import": "node scripts/importData.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sylvain13bdr/devoir-api-port-plaisance-russel.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Sylvain13bdr/devoir-api-port-plaisance-russel/issues"
+  },
+  "homepage": "https://github.com/Sylvain13bdr/devoir-api-port-plaisance-russel#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^17.4.1",
+    "ejs": "^5.0.1",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.4.1"
+  }
+}

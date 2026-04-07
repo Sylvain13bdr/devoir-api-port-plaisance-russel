@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Modifier catway - Port Russell</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav>
+    <span class="brand">Port de Plaisance Russell</span>
+    <div>
+      <a href="/dashboard">Tableau de bord</a>
+      <a href="/catways">Catways</a>
+      <a href="/reservations">Réservations</a>
+      <a href="/users">Utilisateurs</a>
+      <a href="/api-docs">Documentation API</a>
+      <a href="/logout">Déconnexion</a>
+    </div>
+  </nav>
+  <div class="container">
+    <h1>Modifier catway n° <%= catway.catwayNumber %></h1>
+    <div class="card">
+      <% if (error) { %><div class="error"><%= error %></div><% } %>
+      <p><strong>Numéro :</strong> <%= catway.catwayNumber %> (non modifiable)</p>
+      <p><strong>Type :</strong> <%= catway.catwayType %> (non modifiable)</p>
+      <form action="/catways/<%= catway.catwayNumber %>/update" method="POST" style="margin-top:16px">
+        <div class="form-group">
+          <label>État</label>
+          <input type="text" name="catwayState" value="<%= catway.catwayState %>" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <a href="/catways" class="btn btn-secondary">Annuler</a>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

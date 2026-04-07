@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Utilisateur - Port Russell</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav>
+    <span class="brand">Port de Plaisance Russell</span>
+    <div>
+      <a href="/dashboard">Tableau de bord</a>
+      <a href="/catways">Catways</a>
+      <a href="/reservations">Réservations</a>
+      <a href="/users">Utilisateurs</a>
+      <a href="/api-docs">Documentation API</a>
+      <a href="/logout">Déconnexion</a>
+    </div>
+  </nav>
+  <div class="container">
+    <h1>Détail utilisateur</h1>
+    <div class="card">
+      <p><strong>Nom d'utilisateur :</strong> <%= foundUser.username %></p>
+      <p><strong>Email :</strong> <%= foundUser.email %></p>
+    </div>
+    <a href="/users/<%= foundUser.email %>/edit" class="btn btn-primary">Modifier</a>
+    <a href="/users" class="btn btn-secondary">Retour</a>
+  </div>
+</body>
+</html>

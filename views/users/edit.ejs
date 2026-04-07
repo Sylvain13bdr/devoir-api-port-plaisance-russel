@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Modifier utilisateur - Port Russell</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav>
+    <span class="brand">Port de Plaisance Russell</span>
+    <div>
+      <a href="/dashboard">Tableau de bord</a>
+      <a href="/catways">Catways</a>
+      <a href="/reservations">Réservations</a>
+      <a href="/users">Utilisateurs</a>
+      <a href="/api-docs">Documentation API</a>
+      <a href="/logout">Déconnexion</a>
+    </div>
+  </nav>
+  <div class="container">
+    <h1>Modifier l'utilisateur</h1>
+    <div class="card">
+      <% if (error) { %><div class="error"><%= error %></div><% } %>
+      <form action="/users/<%= foundUser.email %>/update" method="POST">
+        <div class="form-group">
+          <label>Nom d'utilisateur</label>
+          <input type="text" name="username" value="<%= foundUser.username %>" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" value="<%= foundUser.email %>" required>
+        </div>
+        <div class="form-group">
+          <label>Nouveau mot de passe (laisser vide pour ne pas changer)</label>
+          <input type="password" name="password" minlength="6">
+        </div>
+        <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <a href="/users" class="btn btn-secondary">Annuler</a>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

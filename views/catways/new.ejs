@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Nouveau catway - Port Russell</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav>
+    <span class="brand">Port de Plaisance Russell</span>
+    <div>
+      <a href="/dashboard">Tableau de bord</a>
+      <a href="/catways">Catways</a>
+      <a href="/reservations">Réservations</a>
+      <a href="/users">Utilisateurs</a>
+      <a href="/api-docs">Documentation API</a>
+      <a href="/logout">Déconnexion</a>
+    </div>
+  </nav>
+  <div class="container">
+    <h1>Nouveau catway</h1>
+    <div class="card">
+      <% if (error) { %><div class="error"><%= error %></div><% } %>
+      <form action="/catways" method="POST">
+        <div class="form-group">
+          <label>Numéro</label>
+          <input type="number" name="catwayNumber" required>
+        </div>
+        <div class="form-group">
+          <label>Type</label>
+          <select name="catwayType" required>
+            <option value="short">Short</option>
+            <option value="long">Long</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>État</label>
+          <input type="text" name="catwayState" value="bon état" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Créer</button>
+        <a href="/catways" class="btn btn-secondary">Annuler</a>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

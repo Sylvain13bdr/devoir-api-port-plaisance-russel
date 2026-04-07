@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tableau de bord - Port Russell</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav>
+    <span class="brand">Port de Plaisance Russell</span>
+    <div>
+      <a href="/dashboard">Tableau de bord</a>
+      <a href="/catways">Catways</a>
+      <a href="/reservations">Réservations</a>
+      <a href="/users">Utilisateurs</a>
+      <a href="/api-docs">Documentation API</a>
+      <a href="/logout">Déconnexion</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>Tableau de bord</h1>
+
+    <div class="info-row">
+      <div class="info-box">
+        <strong>Utilisateur connecté</strong><br>
+        <%= user.username %> — <%= user.email %>
+      </div>
+      <div class="info-box">
+        <strong>Date du jour</strong><br>
+        <%= new Date().toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Réservations en cours</h2>
+      <% if (reservations.length === 0) { %>
+        <p>Aucune réservation en cours.</p>
+      <% } else { %>
+        <table>
+          <thead>
+            <tr>
+              <th>Catway n°</th>
+              <th>Client</th>
+              <th>Bateau</th>
+              <th>Début</th>
+              <th>Fin</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% reservations.forEach(r => { %>
+              <tr>
+                <td><%= r.catwayNumber %></td>
+                <td><%= r.clientName %></td>
+                <td><%= r.boatName %></td>
+                <td><%= new Date(r.startDate).toLocaleDateString('fr-FR') %></td>
+                <td><%= new Date(r.endDate).toLocaleDateString('fr-FR') %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>
